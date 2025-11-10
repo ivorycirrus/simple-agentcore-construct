@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.1]
+## 0.0.0
 
 ### Added
+
 - Initial release of Simple AgentCore Construct
 - Support for deploying AWS Bedrock AgentCore Runtime with Docker containers
 - Automatic ECR repository creation and image deployment

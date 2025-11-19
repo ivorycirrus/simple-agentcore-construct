@@ -23,15 +23,21 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: lts/*
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: build
         run: npx projen build
       - name: Find mutations
         id: self_mutation
-        run: |-
+        run: >-
           git add .
-          git diff --staged --patch --exit-code > repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
+
+          git diff --staged --patch --exit-code > repo.patch || echo
+          "self_mutation_happened=true" >> $GITHUB_OUTPUT
         shell: bash
         working-directory: ./
       - name: Upload patch
@@ -43,9 +49,12 @@ jobs:
           overwrite: true
       - name: Fail build on mutation
         if: steps.self_mutation.outputs.self_mutation_happened
-        run: |-
-          echo "::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch."
+        run: >-
+          echo "::error::Files were changed during build (see build log). If
+          this was triggered from a fork, you will need to update your branch."
+
           cat repo.patch
+
           exit 1
       - name: Backup artifact permissions
         run: cd dist && getfacl -R . > permissions-backup.acl

@@ -1,5 +1,5 @@
-import { awscdk } from 'projen';
 import * as fs from 'fs';
+import { awscdk } from 'projen';
 import * as yaml from 'yaml';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -68,7 +68,7 @@ project.postSynthesize = () => {
       // Make file writable
       try {
         fs.chmodSync(workflowFile, 0o644);
-      } catch (e) {
+      } catch {
         // Ignore if file doesn't exist yet
       }
 

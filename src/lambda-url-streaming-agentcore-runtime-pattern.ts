@@ -7,14 +7,51 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
+/**
+ * Properties for LambdaUrlStreamingAgentCoreRuntimePattern construct.
+ */
 export interface LambdaUrlStreamingAgentCoreRuntimePatternProps {
+  /**
+   * ARN of the AgentCore runtime to invoke.
+   */
   readonly runtimeArn: string;
+
+  /**
+   * Authentication type for the Lambda function URL.
+   * @default AWS_IAM
+   */
   readonly authType?: lambda.FunctionUrlAuthType;
 }
 
+/**
+ * A construct that creates a Lambda function with streaming URL to invoke AgentCore runtimes.
+ *
+ * This construct handles:
+ * - Creating Lambda function with response streaming support
+ * - Setting up Lambda function URL with CORS configuration
+ * - IAM role with AgentCore invocation permissions
+ * - Streaming response support via Lambda URL
+ *
+ * @example
+ * new LambdaUrlStreamingAgentCoreRuntimePattern(this, 'LambdaUrl', {
+ *   runtimeArn: runtime.runtimeArn,
+ *   authType: lambda.FunctionUrlAuthType.NONE,
+ * });
+ */
 export class LambdaUrlStreamingAgentCoreRuntimePattern extends Construct {
+  /**
+   * The Lambda function instance.
+   */
   public readonly function: lambda.Function;
+
+  /**
+   * The Lambda function URL.
+   */
   public readonly functionUrl: lambda.FunctionUrl;
+
+  /**
+   * The URL string of the Lambda function.
+   */
   public readonly url: string;
 
   constructor(scope: Construct, id: string, props: LambdaUrlStreamingAgentCoreRuntimePatternProps) {

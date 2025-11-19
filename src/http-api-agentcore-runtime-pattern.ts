@@ -11,20 +11,76 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
+/**
+ * Configuration for a runtime invocation route.
+ */
 export interface RuntimeInvokeConfig {
+  /**
+   * ARN of the AgentCore runtime to invoke.
+   */
   readonly runtimeArn: string;
+
+  /**
+   * HTTP route path for this runtime.
+   */
   readonly routePath: string;
 }
 
+/**
+ * Properties for HttpApiAgentCoreRuntimePattern construct.
+ */
 export interface HttpApiAgentCoreRuntimePatternProps {
+  /**
+   * Array of runtime configurations to expose via HTTP API.
+   */
   readonly runtimes: RuntimeInvokeConfig[];
+
+  /**
+   * API key for simple authentication. Creates a Lambda authorizer.
+   * Cannot be used with `authorizer`.
+   * @default - No authentication
+   */
   readonly authApiKey?: string;
+
+  /**
+   * Custom HTTP route authorizer.
+   * Cannot be used with `authApiKey`.
+   * @default - No authentication
+   */
   readonly authorizer?: apigwv2.IHttpRouteAuthorizer;
 }
 
+/**
+ * A construct that creates an HTTP API Gateway to invoke AgentCore runtimes.
+ *
+ * This construct handles:
+ * - Creating HTTP API Gateway with CORS configuration
+ * - Setting up Lambda functions to invoke AgentCore runtimes
+ * - Optional API key or custom authentication
+ * - Multiple runtime endpoints
+ *
+ * @example
+ * new HttpApiAgentCoreRuntimePattern(this, 'HttpApi', {
+ *   runtimes: [
+ *     { runtimeArn: runtime.runtimeArn, routePath: '/agent' }
+ *   ],
+ *   authApiKey: 'my-secret-key',
+ * });
+ */
 export class HttpApiAgentCoreRuntimePattern extends Construct {
+  /**
+   * The HTTP API Gateway instance.
+   */
   public readonly httpApi: apigwv2.HttpApi;
+
+  /**
+   * The URL of the HTTP API.
+   */
   public readonly apiUrl: string;
+
+  /**
+   * IAM role used by Lambda functions to invoke AgentCore runtimes.
+   */
   private readonly lambdaRole: iam.Role;
 
   constructor(scope: Construct, id: string, props: HttpApiAgentCoreRuntimePatternProps) {
@@ -83,14 +139,20 @@ export class HttpApiAgentCoreRuntimePattern extends Construct {
     });
 
     props.runtimes.forEach((runtime, index) => {
-      this.addRuntimeInvoke(runtime, `Runtime${index}`);
+      this.addRuntimeInvoke(`Runtime${index}`, runtime);
     });
 
     this.apiUrl = this.httpApi.apiEndpoint;
   }
 
-  public addRuntimeInvoke(config: RuntimeInvokeConfig, suffix: string): void {
-    const fnInvoke = new PythonFunction(this, `${suffix}Function`, {
+  /**
+   * Adds a new runtime invocation endpoint to the HTTP API.
+   *
+   * @param id - Unique identifier for CDK resource naming
+   * @param config - Runtime configuration including ARN and route path
+   */
+  public addRuntimeInvoke(id: string, config: RuntimeInvokeConfig): void {
+    const fnInvoke = new PythonFunction(this, `${id}Function`, {
       entry: path.join(__dirname, '../lambda/agentcore-runtime-http-api'),
       runtime: lambda.Runtime.PYTHON_3_13,
       architecture: lambda.Architecture.ARM_64,
@@ -99,13 +161,13 @@ export class HttpApiAgentCoreRuntimePattern extends Construct {
       environment: {
         ARN_AGENTCORE_RUNTIME: config.runtimeArn,
       },
-      logGroup: new logs.LogGroup(this, `${suffix}FunctionLogGroup`, {
+      logGroup: new logs.LogGroup(this, `${id}FunctionLogGroup`, {
         retention: logs.RetentionDays.ONE_WEEK,
       }),
     });
 
     const integration = new apigwv2_integration.HttpLambdaIntegration(
-      `${suffix}Integration`,
+      `${id}Integration`,
       fnInvoke,
       {
         payloadFormatVersion: apigwv2.PayloadFormatVersion.VERSION_2_0,

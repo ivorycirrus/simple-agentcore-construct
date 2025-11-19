@@ -11,16 +11,65 @@ import {
 import { WebSocketLambdaIntegration } from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import { Construct } from 'constructs';
 
+/**
+ * Properties for WebsocketAgentCoreRuntimePattern construct.
+ */
 export interface WebsocketAgentCoreRuntimePatternProps {
+  /**
+   * ARN of the AgentCore runtime to invoke.
+   */
   readonly runtimeArn: string;
+
+  /**
+   * API key for simple authentication. Creates a Lambda authorizer.
+   * Cannot be used with `authorizer`.
+   * @default - No authentication
+   */
   readonly authApiKey?: string;
+
+  /**
+   * Custom WebSocket route authorizer.
+   * Cannot be used with `authApiKey`.
+   * @default - No authentication
+   */
   readonly authorizer?: apigwv2.IWebSocketRouteAuthorizer;
+
+  /**
+   * Custom route path for WebSocket messages.
+   * @default 'message'
+   */
   readonly routePath?: string;
 }
 
+/**
+ * A construct that creates a WebSocket API Gateway to invoke AgentCore runtimes with streaming support.
+ *
+ * This construct handles:
+ * - Creating WebSocket API Gateway with connect/disconnect/message routes
+ * - Setting up Lambda function to invoke AgentCore runtime
+ * - Optional API key or custom authentication
+ * - Streaming response support via WebSocket
+ *
+ * @example
+ * new WebsocketAgentCoreRuntimePattern(this, 'WebSocket', {
+ *   runtimeArn: runtime.runtimeArn,
+ *   authApiKey: 'my-secret-key',
+ * });
+ */
 export class WebsocketAgentCoreRuntimePattern extends Construct {
+  /**
+   * The WebSocket API Gateway instance.
+   */
   public readonly webSocketApi: apigwv2.WebSocketApi;
+
+  /**
+   * The WebSocket API stage.
+   */
   public readonly webSocketStage: apigwv2.WebSocketStage;
+
+  /**
+   * The URL of the WebSocket API.
+   */
   public readonly webSocketUrl: string;
 
   constructor(scope: Construct, id: string, props: WebsocketAgentCoreRuntimePatternProps) {

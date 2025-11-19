@@ -4,7 +4,6 @@ import {
   aws_iam as iam,
   aws_lambda as lambda,
   aws_logs as logs,
-  aws_lambda_nodejs as lambda_node,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -14,7 +13,7 @@ export interface LambdaUrlStreamingAgentCoreRuntimePatternProps {
 }
 
 export class LambdaUrlStreamingAgentCoreRuntimePattern extends Construct {
-  public readonly function: lambda_node.NodejsFunction;
+  public readonly function: lambda.Function;
   public readonly functionUrl: lambda.FunctionUrl;
   public readonly url: string;
 
@@ -34,10 +33,10 @@ export class LambdaUrlStreamingAgentCoreRuntimePattern extends Construct {
       resources: ['arn:aws:bedrock-agentcore:*:*:runtime/*'],
     }));
 
-    this.function = new lambda_node.NodejsFunction(this, `${id}Function`, {
+    this.function = new lambda.Function(this, `${id}Function`, {
       runtime: lambda.Runtime.NODEJS_22_X,
-      handler: 'handler',
-      entry: path.join(__dirname, '../lambda/agentcore-runtime-lambda-url-streaming/index.ts'),
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../build/lambda-agentcore-runtime-lambda-url-streaming')),
       role: lambdaRole,
       architecture: lambda.Architecture.ARM_64,
       timeout: Duration.minutes(5),
@@ -48,14 +47,6 @@ export class LambdaUrlStreamingAgentCoreRuntimePattern extends Construct {
       logGroup: new logs.LogGroup(this, `${id}FunctionLogGroup`, {
         retention: logs.RetentionDays.ONE_WEEK,
       }),
-      bundling: {
-        minify: true,
-        sourceMap: true,
-        externalModules: [
-          '@aws-sdk/*',
-          '@smithy/*',
-        ],
-      },
     });
 
     this.functionUrl = this.function.addFunctionUrl({

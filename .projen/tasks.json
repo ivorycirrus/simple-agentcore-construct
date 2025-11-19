@@ -88,6 +88,9 @@
       "description": "Only compile",
       "steps": [
         {
+          "exec": "ts-node --project tsconfig.dev.json scripts/bundle-lambda-agentcore-runtime-lambda-url-streaming.ts"
+        },
+        {
           "exec": "jsii --silence-warnings=reserved-word"
         }
       ]

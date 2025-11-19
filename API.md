@@ -253,7 +253,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunction</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
 | <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl">functionUrl</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrl</code> | *No description.* |
 | <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url">url</a></code> | <code>string</code> | *No description.* |
 
@@ -274,10 +274,10 @@ The tree node.
 ##### `function`<sup>Required</sup> <a name="function" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function"></a>
 
 ```typescript
-public readonly function: NodejsFunction;
+public readonly function: Function;
 ```
 
-- *Type:* aws-cdk-lib.aws_lambda_nodejs.NodejsFunction
+- *Type:* aws-cdk-lib.aws_lambda.Function
 
 ---
 

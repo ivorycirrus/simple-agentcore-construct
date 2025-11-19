@@ -3,49 +3,86 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { HttpApiAgentCoreRuntimePattern } from '../src/http-api-agentcore-runtime-pattern';
 
 describe('HttpApiAgentCoreRuntimePattern', () => {
-  let app: App;
-  let stack: Stack;
+  describe('validation', () => {
+    let app: App;
+    let stack: Stack;
 
-  beforeEach(() => {
-    app = new App();
-    stack = new Stack(app, 'TestStack');
-  });
-
-  test('creates HTTP API with runtime integration', () => {
-    new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
-      runtimes: [
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
-          routePath: '/agent',
-        },
-      ],
+    beforeEach(() => {
+      app = new App();
+      stack = new Stack(app, 'TestStack');
     });
 
-    const template = Template.fromStack(stack);
-
-    template.resourceCountIs('AWS::ApiGatewayV2::Api', 1);
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::IAM::Role', 1);
+    test('throws error when both authApiKey and authorizer are provided', () => {
+      expect(() => {
+        new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
+          runtimes: [
+            {
+              runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
+              routePath: '/agent',
+            },
+          ],
+          authApiKey: 'test-api-key',
+          authorizer: {} as any,
+        });
+      }).toThrow('Cannot specify both authApiKey and authorizer. Please provide only one.');
+    });
   });
 
-  test('creates authorizer when authApiKey is provided', () => {
-    new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
-      runtimes: [
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
-          routePath: '/agent',
-        },
-      ],
-      authApiKey: 'test-api-key',
+  describe('resource creation', () => {
+    let template: Template;
+    let pattern: HttpApiAgentCoreRuntimePattern;
+
+    beforeAll(() => {
+      const app = new App();
+      const stack = new Stack(app, 'TestStack');
+
+      pattern = new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
+        runtimes: [
+          {
+            runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
+            routePath: '/agent',
+          },
+        ],
+      });
+
+      template = Template.fromStack(stack);
     });
 
-    const template = Template.fromStack(stack);
+    test('creates HTTP API with runtime integration', () => {
+      template.resourceCountIs('AWS::ApiGatewayV2::Api', 1);
+      template.resourceCountIs('AWS::Lambda::Function', 1);
+      template.resourceCountIs('AWS::IAM::Role', 1);
+    });
 
-    template.resourceCountIs('AWS::Lambda::Function', 2); // auth + runtime invoke
+    test('creates IAM role with bedrock-agentcore permissions', () => {
+      template.hasResourceProperties('AWS::IAM::Role', {
+        AssumeRolePolicyDocument: {
+          Statement: [
+            {
+              Action: 'sts:AssumeRole',
+              Effect: 'Allow',
+              Principal: {
+                Service: 'lambda.amazonaws.com',
+              },
+            },
+          ],
+        },
+      });
+    });
+
+    test('exposes httpApi and apiUrl', () => {
+      expect(pattern.httpApi).toBeDefined();
+      expect(pattern.apiUrl).toBeDefined();
+    });
   });
 
-  test('throws error when both authApiKey and authorizer are provided', () => {
-    expect(() => {
+  describe('with authApiKey', () => {
+    let template: Template;
+
+    beforeAll(() => {
+      const app = new App();
+      const stack = new Stack(app, 'TestStack');
+
       new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
         runtimes: [
           {
@@ -54,68 +91,41 @@ describe('HttpApiAgentCoreRuntimePattern', () => {
           },
         ],
         authApiKey: 'test-api-key',
-        authorizer: {} as any,
       });
-    }).toThrow('Cannot specify both authApiKey and authorizer. Please provide only one.');
-  });
 
-  test('creates multiple runtime integrations', () => {
-    new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
-      runtimes: [
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/runtime1',
-          routePath: '/agent1',
-        },
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/runtime2',
-          routePath: '/agent2',
-        },
-      ],
+      template = Template.fromStack(stack);
     });
 
-    const template = Template.fromStack(stack);
-
-    template.resourceCountIs('AWS::Lambda::Function', 2);
+    test('creates authorizer when authApiKey is provided', () => {
+      template.resourceCountIs('AWS::Lambda::Function', 2); // auth + runtime invoke
+    });
   });
 
-  test('creates IAM role with bedrock-agentcore permissions', () => {
-    new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
-      runtimes: [
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
-          routePath: '/agent',
-        },
-      ],
-    });
+  describe('with multiple runtimes', () => {
+    let template: Template;
 
-    const template = Template.fromStack(stack);
+    beforeAll(() => {
+      const app = new App();
+      const stack = new Stack(app, 'TestStack');
 
-    template.hasResourceProperties('AWS::IAM::Role', {
-      AssumeRolePolicyDocument: {
-        Statement: [
+      new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
+        runtimes: [
           {
-            Action: 'sts:AssumeRole',
-            Effect: 'Allow',
-            Principal: {
-              Service: 'lambda.amazonaws.com',
-            },
+            runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/runtime1',
+            routePath: '/agent1',
+          },
+          {
+            runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/runtime2',
+            routePath: '/agent2',
           },
         ],
-      },
-    });
-  });
+      });
 
-  test('exposes httpApi and apiUrl', () => {
-    const pattern = new HttpApiAgentCoreRuntimePattern(stack, 'TestPattern', {
-      runtimes: [
-        {
-          runtimeArn: 'arn:aws:bedrock-agentcore:us-east-1:123456789012:runtime/test-runtime',
-          routePath: '/agent',
-        },
-      ],
+      template = Template.fromStack(stack);
     });
 
-    expect(pattern.httpApi).toBeDefined();
-    expect(pattern.apiUrl).toBeDefined();
+    test('creates multiple runtime integrations', () => {
+      template.resourceCountIs('AWS::Lambda::Function', 2);
+    });
   });
 });

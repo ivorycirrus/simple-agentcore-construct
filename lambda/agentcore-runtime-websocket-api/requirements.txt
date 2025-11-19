@@ -1,0 +1,9 @@
+# for python build
+setuptools
+
+# recent aws-sdk(boto3) for agentcore runtime support
+boto3>=1.40.3
+
+# python dependency updates by PythonFunction
+poetry>=1.8.0
+poetry-plugin-export>=1.8.0

@@ -1,0 +1,13 @@
+{
+  "name": "bedrock-http-streaming",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agentcore": "^3.929.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.158",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.3"
+  }
+}

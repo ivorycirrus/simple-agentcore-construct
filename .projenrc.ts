@@ -16,7 +16,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   cdkVersion: '2.221.0',
   jsiiVersion: '~5.9.0',
-  deps: ['cdk-nag', 'cdk-ecr-deployment'],
+  deps: [
+    'cdk-nag',
+    'cdk-ecr-deployment',
+    '@aws-cdk/aws-lambda-python-alpha',
+  ],
+  devDeps: ['esbuild'],
 
   // Packing Options
   packageName: 'simple-agentcore-runtime-patterns',
@@ -31,6 +36,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   depsUpgrade: false, // Disable automatic dependency upgrades
   mergify: false, // Disable mergify
   npmignore: ['AGENTS.md'], // Exclude AGENTS.md from package
+  bundledDeps: [],
+  gitignore: ['build/'],
 });
 
 // ESLint Rules
@@ -43,5 +50,7 @@ project.eslint?.addRules({
     },
   ],
 });
+
+project.compileTask.prependExec('ts-node --project tsconfig.dev.json scripts/bundle-lambda-agentcore-runtime-lambda-url-streaming.ts');
 
 project.synth();

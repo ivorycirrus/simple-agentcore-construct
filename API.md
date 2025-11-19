@@ -2,6 +2,306 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### HttpApiAgentCoreRuntimePattern <a name="HttpApiAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern"></a>
+
+#### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer"></a>
+
+```typescript
+import { HttpApiAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+new HttpApiAgentCoreRuntimePattern(scope: Construct, id: string, props: HttpApiAgentCoreRuntimePatternProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.props">props</a></code> | <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps">HttpApiAgentCoreRuntimePatternProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps">HttpApiAgentCoreRuntimePatternProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke">addRuntimeInvoke</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addRuntimeInvoke` <a name="addRuntimeInvoke" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke"></a>
+
+```typescript
+public addRuntimeInvoke(config: RuntimeInvokeConfig, suffix: string): void
+```
+
+###### `config`<sup>Required</sup> <a name="config" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke.parameter.config"></a>
+
+- *Type:* <a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>
+
+---
+
+###### `suffix`<sup>Required</sup> <a name="suffix" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke.parameter.suffix"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.isConstruct"></a>
+
+```typescript
+import { HttpApiAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+HttpApiAgentCoreRuntimePattern.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.apiUrl">apiUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.httpApi">httpApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.HttpApi</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiUrl`<sup>Required</sup> <a name="apiUrl" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.apiUrl"></a>
+
+```typescript
+public readonly apiUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `httpApi`<sup>Required</sup> <a name="httpApi" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.httpApi"></a>
+
+```typescript
+public readonly httpApi: HttpApi;
+```
+
+- *Type:* aws-cdk-lib.aws_apigatewayv2.HttpApi
+
+---
+
+
+### LambdaUrlStreamingAgentCoreRuntimePattern <a name="LambdaUrlStreamingAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern"></a>
+
+#### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer"></a>
+
+```typescript
+import { LambdaUrlStreamingAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+new LambdaUrlStreamingAgentCoreRuntimePattern(scope: Construct, id: string, props: LambdaUrlStreamingAgentCoreRuntimePatternProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.props">props</a></code> | <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps">LambdaUrlStreamingAgentCoreRuntimePatternProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps">LambdaUrlStreamingAgentCoreRuntimePatternProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.isConstruct"></a>
+
+```typescript
+import { LambdaUrlStreamingAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+LambdaUrlStreamingAgentCoreRuntimePattern.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda_nodejs.NodejsFunction</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl">functionUrl</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrl</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url">url</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `function`<sup>Required</sup> <a name="function" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function"></a>
+
+```typescript
+public readonly function: NodejsFunction;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda_nodejs.NodejsFunction
+
+---
+
+##### `functionUrl`<sup>Required</sup> <a name="functionUrl" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl"></a>
+
+```typescript
+public readonly functionUrl: FunctionUrl;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionUrl
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### SimpleAgentCoreRuntime <a name="SimpleAgentCoreRuntime" id="simple-agentcore-runtime-patterns.SimpleAgentCoreRuntime"></a>
 
 A construct that creates an AWS Bedrock AgentCore runtime.
@@ -184,7 +484,281 @@ The version of the AgentCore runtime.
 ---
 
 
+### WebsocketAgentCoreRuntimePattern <a name="WebsocketAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern"></a>
+
+#### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer"></a>
+
+```typescript
+import { WebsocketAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+new WebsocketAgentCoreRuntimePattern(scope: Construct, id: string, props: WebsocketAgentCoreRuntimePatternProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.props">props</a></code> | <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps">WebsocketAgentCoreRuntimePatternProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps">WebsocketAgentCoreRuntimePatternProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.isConstruct"></a>
+
+```typescript
+import { WebsocketAgentCoreRuntimePattern } from 'simple-agentcore-runtime-patterns'
+
+WebsocketAgentCoreRuntimePattern.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketApi">webSocketApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketApi</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketStage">webSocketStage</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketStage</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketUrl">webSocketUrl</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `webSocketApi`<sup>Required</sup> <a name="webSocketApi" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketApi"></a>
+
+```typescript
+public readonly webSocketApi: WebSocketApi;
+```
+
+- *Type:* aws-cdk-lib.aws_apigatewayv2.WebSocketApi
+
+---
+
+##### `webSocketStage`<sup>Required</sup> <a name="webSocketStage" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketStage"></a>
+
+```typescript
+public readonly webSocketStage: WebSocketStage;
+```
+
+- *Type:* aws-cdk-lib.aws_apigatewayv2.WebSocketStage
+
+---
+
+##### `webSocketUrl`<sup>Required</sup> <a name="webSocketUrl" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketUrl"></a>
+
+```typescript
+public readonly webSocketUrl: string;
+```
+
+- *Type:* string
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
+
+### HttpApiAgentCoreRuntimePatternProps <a name="HttpApiAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps"></a>
+
+#### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.Initializer"></a>
+
+```typescript
+import { HttpApiAgentCoreRuntimePatternProps } from 'simple-agentcore-runtime-patterns'
+
+const httpApiAgentCoreRuntimePatternProps: HttpApiAgentCoreRuntimePatternProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.runtimes">runtimes</a></code> | <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>[]</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IHttpRouteAuthorizer</code> | *No description.* |
+
+---
+
+##### `runtimes`<sup>Required</sup> <a name="runtimes" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.runtimes"></a>
+
+```typescript
+public readonly runtimes: RuntimeInvokeConfig[];
+```
+
+- *Type:* <a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>[]
+
+---
+
+##### `authApiKey`<sup>Optional</sup> <a name="authApiKey" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authApiKey"></a>
+
+```typescript
+public readonly authApiKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `authorizer`<sup>Optional</sup> <a name="authorizer" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authorizer"></a>
+
+```typescript
+public readonly authorizer: IHttpRouteAuthorizer;
+```
+
+- *Type:* aws-cdk-lib.aws_apigatewayv2.IHttpRouteAuthorizer
+
+---
+
+### LambdaUrlStreamingAgentCoreRuntimePatternProps <a name="LambdaUrlStreamingAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps"></a>
+
+#### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.Initializer"></a>
+
+```typescript
+import { LambdaUrlStreamingAgentCoreRuntimePatternProps } from 'simple-agentcore-runtime-patterns'
+
+const lambdaUrlStreamingAgentCoreRuntimePatternProps: LambdaUrlStreamingAgentCoreRuntimePatternProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.authType">authType</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrlAuthType</code> | *No description.* |
+
+---
+
+##### `runtimeArn`<sup>Required</sup> <a name="runtimeArn" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.runtimeArn"></a>
+
+```typescript
+public readonly runtimeArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `authType`<sup>Optional</sup> <a name="authType" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.authType"></a>
+
+```typescript
+public readonly authType: FunctionUrlAuthType;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionUrlAuthType
+
+---
+
+### RuntimeInvokeConfig <a name="RuntimeInvokeConfig" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig"></a>
+
+#### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig.Initializer"></a>
+
+```typescript
+import { RuntimeInvokeConfig } from 'simple-agentcore-runtime-patterns'
+
+const runtimeInvokeConfig: RuntimeInvokeConfig = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.routePath">routePath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `routePath`<sup>Required</sup> <a name="routePath" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.routePath"></a>
+
+```typescript
+public readonly routePath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `runtimeArn`<sup>Required</sup> <a name="runtimeArn" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.runtimeArn"></a>
+
+```typescript
+public readonly runtimeArn: string;
+```
+
+- *Type:* string
+
+---
 
 ### SimpleAgentCoreRuntimeProps <a name="SimpleAgentCoreRuntimeProps" id="simple-agentcore-runtime-patterns.SimpleAgentCoreRuntimeProps"></a>
 
@@ -300,6 +874,67 @@ public readonly runtimeExecutionRole: Role;
 - *Default:* Creates a new role with required Bedrock AgentCore permissions
 
 IAM role for the AgentCore runtime execution.
+
+---
+
+### WebsocketAgentCoreRuntimePatternProps <a name="WebsocketAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps"></a>
+
+#### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.Initializer"></a>
+
+```typescript
+import { WebsocketAgentCoreRuntimePatternProps } from 'simple-agentcore-runtime-patterns'
+
+const websocketAgentCoreRuntimePatternProps: WebsocketAgentCoreRuntimePatternProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IWebSocketRouteAuthorizer</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.routePath">routePath</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `runtimeArn`<sup>Required</sup> <a name="runtimeArn" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.runtimeArn"></a>
+
+```typescript
+public readonly runtimeArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `authApiKey`<sup>Optional</sup> <a name="authApiKey" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authApiKey"></a>
+
+```typescript
+public readonly authApiKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `authorizer`<sup>Optional</sup> <a name="authorizer" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authorizer"></a>
+
+```typescript
+public readonly authorizer: IWebSocketRouteAuthorizer;
+```
+
+- *Type:* aws-cdk-lib.aws_apigatewayv2.IWebSocketRouteAuthorizer
+
+---
+
+##### `routePath`<sup>Optional</sup> <a name="routePath" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.routePath"></a>
+
+```typescript
+public readonly routePath: string;
+```
+
+- *Type:* string
 
 ---
 

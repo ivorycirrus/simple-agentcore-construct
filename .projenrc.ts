@@ -16,7 +16,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   cdkVersion: '2.221.0',
   jsiiVersion: '~5.9.0',
-  deps: ['cdk-nag', 'cdk-ecr-deployment'],
+  deps: [
+    'cdk-nag',
+    'cdk-ecr-deployment',
+    '@aws-cdk/aws-lambda-python-alpha',
+  ],
 
   // Packing Options
   packageName: 'simple-agentcore-runtime-patterns',

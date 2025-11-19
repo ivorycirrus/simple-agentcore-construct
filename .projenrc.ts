@@ -56,19 +56,8 @@ project.eslint?.addRules({
 
 project.compileTask.prependExec('ts-node --project tsconfig.dev.json scripts/bundle-lambda-agentcore-runtime-lambda-url-streaming.ts');
 
-// Add QEMU and Docker Buildx setup to GitHub Actions workflows for ARM64 support
+// Use ARM64 GitHub Actions runners for native ARM64 Docker builds
 project.postSynthesize = () => {
-  const dockerSetupSteps = [
-    {
-      name: 'Set up QEMU',
-      uses: 'docker/setup-qemu-action@v3',
-    },
-    {
-      name: 'Set up Docker Buildx',
-      uses: 'docker/setup-buildx-action@v3',
-    },
-  ];
-
   const workflowFiles = [
     '.github/workflows/release.yml',
     '.github/workflows/build.yml',
@@ -86,21 +75,11 @@ project.postSynthesize = () => {
       const content = fs.readFileSync(workflowFile, 'utf8');
       const workflow = yaml.parse(content);
 
-      // Find jobs that have 'Install dependencies' step
+      // Update runs-on to use ARM64 runners
       for (const jobName of Object.keys(workflow.jobs || {})) {
         const job = workflow.jobs[jobName];
-        if (job.steps && Array.isArray(job.steps)) {
-          const installDepsIndex = job.steps.findIndex(
-            (step: any) => step.name === 'Install dependencies'
-          );
-          if (installDepsIndex >= 0) {
-            // Check if QEMU setup already exists
-            const hasQemu = job.steps.some((step: any) => step.name === 'Set up QEMU');
-            if (!hasQemu) {
-              // Insert Docker setup steps before Install dependencies
-              job.steps.splice(installDepsIndex, 0, ...dockerSetupSteps);
-            }
-          }
+        if (job['runs-on'] === 'ubuntu-latest') {
+          job['runs-on'] = 'ubuntu-24.04-arm';
         }
       }
 

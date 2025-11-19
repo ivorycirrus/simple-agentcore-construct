@@ -4,6 +4,26 @@
 
 ### HttpApiAgentCoreRuntimePattern <a name="HttpApiAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern"></a>
 
+A construct that creates an HTTP API Gateway to invoke AgentCore runtimes.
+
+This construct handles:
+- Creating HTTP API Gateway with CORS configuration
+- Setting up Lambda functions to invoke AgentCore runtimes
+- Optional API key or custom authentication
+- Multiple runtime endpoints
+
+*Example*
+
+```typescript
+new HttpApiAgentCoreRuntimePattern(this, 'HttpApi', {
+  runtimes: [
+    { runtimeArn: runtime.runtimeArn, routePath: '/agent' }
+  ],
+  authApiKey: 'my-secret-key',
+});
+```
+
+
 #### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.Initializer"></a>
 
 ```typescript
@@ -43,7 +63,7 @@ new HttpApiAgentCoreRuntimePattern(scope: Construct, id: string, props: HttpApiA
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke">addRuntimeInvoke</a></code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke">addRuntimeInvoke</a></code> | Adds a new runtime invocation endpoint to the HTTP API. |
 
 ---
 
@@ -58,18 +78,24 @@ Returns a string representation of this construct.
 ##### `addRuntimeInvoke` <a name="addRuntimeInvoke" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke"></a>
 
 ```typescript
-public addRuntimeInvoke(config: RuntimeInvokeConfig, suffix: string): void
+public addRuntimeInvoke(id: string, config: RuntimeInvokeConfig): void
 ```
+
+Adds a new runtime invocation endpoint to the HTTP API.
+
+###### `id`<sup>Required</sup> <a name="id" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for CDK resource naming.
+
+---
 
 ###### `config`<sup>Required</sup> <a name="config" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke.parameter.config"></a>
 
 - *Type:* <a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>
 
----
-
-###### `suffix`<sup>Required</sup> <a name="suffix" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.addRuntimeInvoke.parameter.suffix"></a>
-
-- *Type:* string
+Runtime configuration including ARN and route path.
 
 ---
 
@@ -118,8 +144,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.apiUrl">apiUrl</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.httpApi">httpApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.HttpApi</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.apiUrl">apiUrl</a></code> | <code>string</code> | The URL of the HTTP API. |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.httpApi">httpApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.HttpApi</code> | The HTTP API Gateway instance. |
 
 ---
 
@@ -143,6 +169,8 @@ public readonly apiUrl: string;
 
 - *Type:* string
 
+The URL of the HTTP API.
+
 ---
 
 ##### `httpApi`<sup>Required</sup> <a name="httpApi" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePattern.property.httpApi"></a>
@@ -153,10 +181,30 @@ public readonly httpApi: HttpApi;
 
 - *Type:* aws-cdk-lib.aws_apigatewayv2.HttpApi
 
+The HTTP API Gateway instance.
+
 ---
 
 
 ### LambdaUrlStreamingAgentCoreRuntimePattern <a name="LambdaUrlStreamingAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern"></a>
+
+A construct that creates a Lambda function with streaming URL to invoke AgentCore runtimes.
+
+This construct handles:
+- Creating Lambda function with response streaming support
+- Setting up Lambda function URL with CORS configuration
+- IAM role with AgentCore invocation permissions
+- Streaming response support via Lambda URL
+
+*Example*
+
+```typescript
+new LambdaUrlStreamingAgentCoreRuntimePattern(this, 'LambdaUrl', {
+  runtimeArn: runtime.runtimeArn,
+  authType: lambda.FunctionUrlAuthType.NONE,
+});
+```
+
 
 #### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.Initializer"></a>
 
@@ -253,9 +301,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl">functionUrl</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrl</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url">url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.function">function</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | The Lambda function instance. |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl">functionUrl</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrl</code> | The Lambda function URL. |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url">url</a></code> | <code>string</code> | The URL string of the Lambda function. |
 
 ---
 
@@ -279,6 +327,8 @@ public readonly function: Function;
 
 - *Type:* aws-cdk-lib.aws_lambda.Function
 
+The Lambda function instance.
+
 ---
 
 ##### `functionUrl`<sup>Required</sup> <a name="functionUrl" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.functionUrl"></a>
@@ -289,6 +339,8 @@ public readonly functionUrl: FunctionUrl;
 
 - *Type:* aws-cdk-lib.aws_lambda.FunctionUrl
 
+The Lambda function URL.
+
 ---
 
 ##### `url`<sup>Required</sup> <a name="url" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePattern.property.url"></a>
@@ -298,6 +350,8 @@ public readonly url: string;
 ```
 
 - *Type:* string
+
+The URL string of the Lambda function.
 
 ---
 
@@ -486,6 +540,24 @@ The version of the AgentCore runtime.
 
 ### WebsocketAgentCoreRuntimePattern <a name="WebsocketAgentCoreRuntimePattern" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern"></a>
 
+A construct that creates a WebSocket API Gateway to invoke AgentCore runtimes with streaming support.
+
+This construct handles:
+- Creating WebSocket API Gateway with connect/disconnect/message routes
+- Setting up Lambda function to invoke AgentCore runtime
+- Optional API key or custom authentication
+- Streaming response support via WebSocket
+
+*Example*
+
+```typescript
+new WebsocketAgentCoreRuntimePattern(this, 'WebSocket', {
+  runtimeArn: runtime.runtimeArn,
+  authApiKey: 'my-secret-key',
+});
+```
+
+
 #### Initializers <a name="Initializers" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.Initializer"></a>
 
 ```typescript
@@ -581,9 +653,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketApi">webSocketApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketApi</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketStage">webSocketStage</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketStage</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketUrl">webSocketUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketApi">webSocketApi</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketApi</code> | The WebSocket API Gateway instance. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketStage">webSocketStage</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.WebSocketStage</code> | The WebSocket API stage. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketUrl">webSocketUrl</a></code> | <code>string</code> | The URL of the WebSocket API. |
 
 ---
 
@@ -607,6 +679,8 @@ public readonly webSocketApi: WebSocketApi;
 
 - *Type:* aws-cdk-lib.aws_apigatewayv2.WebSocketApi
 
+The WebSocket API Gateway instance.
+
 ---
 
 ##### `webSocketStage`<sup>Required</sup> <a name="webSocketStage" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePattern.property.webSocketStage"></a>
@@ -616,6 +690,8 @@ public readonly webSocketStage: WebSocketStage;
 ```
 
 - *Type:* aws-cdk-lib.aws_apigatewayv2.WebSocketStage
+
+The WebSocket API stage.
 
 ---
 
@@ -627,12 +703,16 @@ public readonly webSocketUrl: string;
 
 - *Type:* string
 
+The URL of the WebSocket API.
+
 ---
 
 
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### HttpApiAgentCoreRuntimePatternProps <a name="HttpApiAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps"></a>
+
+Properties for HttpApiAgentCoreRuntimePattern construct.
 
 #### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.Initializer"></a>
 
@@ -646,9 +726,9 @@ const httpApiAgentCoreRuntimePatternProps: HttpApiAgentCoreRuntimePatternProps =
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.runtimes">runtimes</a></code> | <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>[]</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IHttpRouteAuthorizer</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.runtimes">runtimes</a></code> | <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>[]</code> | Array of runtime configurations to expose via HTTP API. |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | API key for simple authentication. |
+| <code><a href="#simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IHttpRouteAuthorizer</code> | Custom HTTP route authorizer. |
 
 ---
 
@@ -660,6 +740,8 @@ public readonly runtimes: RuntimeInvokeConfig[];
 
 - *Type:* <a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig">RuntimeInvokeConfig</a>[]
 
+Array of runtime configurations to expose via HTTP API.
+
 ---
 
 ##### `authApiKey`<sup>Optional</sup> <a name="authApiKey" id="simple-agentcore-runtime-patterns.HttpApiAgentCoreRuntimePatternProps.property.authApiKey"></a>
@@ -669,6 +751,12 @@ public readonly authApiKey: string;
 ```
 
 - *Type:* string
+- *Default:* No authentication
+
+API key for simple authentication.
+
+Creates a Lambda authorizer.
+Cannot be used with `authorizer`.
 
 ---
 
@@ -679,10 +767,17 @@ public readonly authorizer: IHttpRouteAuthorizer;
 ```
 
 - *Type:* aws-cdk-lib.aws_apigatewayv2.IHttpRouteAuthorizer
+- *Default:* No authentication
+
+Custom HTTP route authorizer.
+
+Cannot be used with `authApiKey`.
 
 ---
 
 ### LambdaUrlStreamingAgentCoreRuntimePatternProps <a name="LambdaUrlStreamingAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps"></a>
+
+Properties for LambdaUrlStreamingAgentCoreRuntimePattern construct.
 
 #### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.Initializer"></a>
 
@@ -696,8 +791,8 @@ const lambdaUrlStreamingAgentCoreRuntimePatternProps: LambdaUrlStreamingAgentCor
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.authType">authType</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrlAuthType</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | ARN of the AgentCore runtime to invoke. |
+| <code><a href="#simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.authType">authType</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrlAuthType</code> | Authentication type for the Lambda function URL. |
 
 ---
 
@@ -709,6 +804,8 @@ public readonly runtimeArn: string;
 
 - *Type:* string
 
+ARN of the AgentCore runtime to invoke.
+
 ---
 
 ##### `authType`<sup>Optional</sup> <a name="authType" id="simple-agentcore-runtime-patterns.LambdaUrlStreamingAgentCoreRuntimePatternProps.property.authType"></a>
@@ -718,10 +815,15 @@ public readonly authType: FunctionUrlAuthType;
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda.FunctionUrlAuthType
+- *Default:* AWS_IAM
+
+Authentication type for the Lambda function URL.
 
 ---
 
 ### RuntimeInvokeConfig <a name="RuntimeInvokeConfig" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig"></a>
+
+Configuration for a runtime invocation route.
 
 #### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig.Initializer"></a>
 
@@ -735,8 +837,8 @@ const runtimeInvokeConfig: RuntimeInvokeConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.routePath">routePath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.routePath">routePath</a></code> | <code>string</code> | HTTP route path for this runtime. |
+| <code><a href="#simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | ARN of the AgentCore runtime to invoke. |
 
 ---
 
@@ -748,6 +850,8 @@ public readonly routePath: string;
 
 - *Type:* string
 
+HTTP route path for this runtime.
+
 ---
 
 ##### `runtimeArn`<sup>Required</sup> <a name="runtimeArn" id="simple-agentcore-runtime-patterns.RuntimeInvokeConfig.property.runtimeArn"></a>
@@ -757,6 +861,8 @@ public readonly runtimeArn: string;
 ```
 
 - *Type:* string
+
+ARN of the AgentCore runtime to invoke.
 
 ---
 
@@ -879,6 +985,8 @@ IAM role for the AgentCore runtime execution.
 
 ### WebsocketAgentCoreRuntimePatternProps <a name="WebsocketAgentCoreRuntimePatternProps" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps"></a>
 
+Properties for WebsocketAgentCoreRuntimePattern construct.
+
 #### Initializer <a name="Initializer" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.Initializer"></a>
 
 ```typescript
@@ -891,10 +999,10 @@ const websocketAgentCoreRuntimePatternProps: WebsocketAgentCoreRuntimePatternPro
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IWebSocketRouteAuthorizer</code> | *No description.* |
-| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.routePath">routePath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.runtimeArn">runtimeArn</a></code> | <code>string</code> | ARN of the AgentCore runtime to invoke. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authApiKey">authApiKey</a></code> | <code>string</code> | API key for simple authentication. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authorizer">authorizer</a></code> | <code>aws-cdk-lib.aws_apigatewayv2.IWebSocketRouteAuthorizer</code> | Custom WebSocket route authorizer. |
+| <code><a href="#simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.routePath">routePath</a></code> | <code>string</code> | Custom route path for WebSocket messages. |
 
 ---
 
@@ -906,6 +1014,8 @@ public readonly runtimeArn: string;
 
 - *Type:* string
 
+ARN of the AgentCore runtime to invoke.
+
 ---
 
 ##### `authApiKey`<sup>Optional</sup> <a name="authApiKey" id="simple-agentcore-runtime-patterns.WebsocketAgentCoreRuntimePatternProps.property.authApiKey"></a>
@@ -915,6 +1025,12 @@ public readonly authApiKey: string;
 ```
 
 - *Type:* string
+- *Default:* No authentication
+
+API key for simple authentication.
+
+Creates a Lambda authorizer.
+Cannot be used with `authorizer`.
 
 ---
 
@@ -925,6 +1041,11 @@ public readonly authorizer: IWebSocketRouteAuthorizer;
 ```
 
 - *Type:* aws-cdk-lib.aws_apigatewayv2.IWebSocketRouteAuthorizer
+- *Default:* No authentication
+
+Custom WebSocket route authorizer.
+
+Cannot be used with `authApiKey`.
 
 ---
 
@@ -935,6 +1056,9 @@ public readonly routePath: string;
 ```
 
 - *Type:* string
+- *Default:* 'message'
+
+Custom route path for WebSocket messages.
 
 ---
 
